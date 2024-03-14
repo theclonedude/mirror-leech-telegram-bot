@@ -75,7 +75,7 @@ def getSpecificTasks(status, userId):
             for tk in list(task_dict.values())
             if tk.listener.userId == userId
             and (
-                (st := tk.status() == status)
+                (st := tk.status()) and st == status
                 or status == MirrorStatus.STATUS_DOWNLOADING
                 and st not in list(STATUSES.values())
             )
@@ -84,7 +84,7 @@ def getSpecificTasks(status, userId):
         return [
             tk
             for tk in list(task_dict.values())
-            if (st := tk.status() == status)
+            if (st := tk.status()) and st == status
             or status == MirrorStatus.STATUS_DOWNLOADING
             and st not in list(STATUSES.values())
         ]
